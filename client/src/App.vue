@@ -1,21 +1,27 @@
 <template>
-  <h1>{{ message }}</h1>
+  <form @submit.prevent="registerUser">
+    <input type="text" v-model="email" />
+    <input type="text" v-model="hashed_password" />
+    <input type="submit" value="Register" />
+  </form>
 </template>
 
 <script setup>
 import { ref, onMounted } from 'vue'
 import axios from 'axios'
 
-let message = ref('')
+let email = ref('')
+let hashed_password = ref('')
 
-onMounted(() => {
-  axios
-    .get('http://127.0.0.1:8000/hi')
-    .then((response) => {
-      message.value = response.data.message
+const registerUser = async () => {
+  try {
+    const response = await axios.post('http://127.0.0.1:8000/api/users', {
+      email: email.value,
+      hashed_password: hashed_password.value,
     })
-    .catch((error) => {
-      console.error('Error:', error)
-    })
-})
+    console.log(response.data)
+  } catch (error) {
+    console.error('Registration failed:', error.response.data)
+  }
+}
 </script>
