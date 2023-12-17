@@ -10,9 +10,9 @@ let message = ref('')
 
 onMounted(() => {
   axios
-    .get('http://127.0.0.1:8000/')
+    .get('http://127.0.0.1:8000/hi')
     .then((response) => {
-      message.value = response.data.Hello
+      message.value = response.data.message
     })
     .catch((error) => {
       console.error('Error:', error)
