@@ -35,3 +35,8 @@ async def generate_token(form_data: _security.OAuth2PasswordRequestForm = _fasta
         raise _fastapi.HTTPException(status_code=401, detail='Invalid credentials')
 
     return await _token_service.create_token(user)
+
+
+@router.post('/api/hi')
+async def hi():
+    return {'hi': 'hello'}
