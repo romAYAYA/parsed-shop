@@ -11,6 +11,7 @@ class UserCreate(_UserBase):
 
     class Config:
         from_attributes = True
+        orm_mode = True
 
 
 class User(_UserBase):
@@ -18,3 +19,4 @@ class User(_UserBase):
 
     class Config:
         from_attributes = True
+        orm_mode = True

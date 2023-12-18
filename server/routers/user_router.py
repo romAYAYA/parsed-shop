@@ -12,7 +12,7 @@ import schemas as _schemas
 router = APIRouter()
 
 
-@router.post('/api/users')
+@router.post('/api/register')
 async def create_user(user: _schemas.UserCreate, db: _orm.Session = _fastapi.Depends(_user_service.get_db)):
     try:
         db_user = await _user_service.get_user_by_email(user.email, db)
@@ -26,17 +26,16 @@ async def create_user(user: _schemas.UserCreate, db: _orm.Session = _fastapi.Dep
         return err
 
 
-@router.post('/api/token')
-async def generate_token(form_data: _security.OAuth2PasswordRequestForm = _fastapi.Depends(),
-                         db: _orm.Session = _fastapi.Depends(_user_service.get_db)):
-    user = await _user_service.auth_user(form_data.username, form_data.password, db)
+@router.get('/api/users/my_profile', response_model=_schemas.User)
+async def get_user(user: _schemas.User = _fastapi.Depends(_user_service.get_current_user)):
+    return user
 
+
+@router.post("/api/login")
+async def login(form_data: _security.OAuth2PasswordRequestForm = _fastapi.Depends(),
+                db: _orm.Session = _fastapi.Depends(_user_service.get_db)):
+    user = await _user_service.auth_user(form_data.username, form_data.password, db)
     if not user:
-        raise _fastapi.HTTPException(status_code=401, detail='Invalid credentials')
+        raise _fastapi.HTTPException(status_code=401, detail="Invalid credentials")
 
     return await _token_service.create_token(user)
-
-
-@router.post('/api/hi')
-async def hi():
-    return {'hi': 'hello'}

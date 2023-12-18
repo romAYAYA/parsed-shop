@@ -1,9 +1,16 @@
+import fastapi as _fastapi
 import sqlalchemy.orm as _orm
 import passlib.hash as _hash
+import jwt as _jwt
+import fastapi.security as _security
+import os
 
 import database as _database
 import models.user_model as _models
 import schemas as _schemas
+from dotenv import load_dotenv
+
+oauth2schema = _security.OAuth2PasswordBearer(tokenUrl='/api/token')
 
 
 def create_database():
@@ -40,3 +47,17 @@ async def auth_user(email: str, password: str, db: _orm.Session):
     if not user.verify_password(password):
         return False
     return user
+
+
+async def get_current_user(db: _orm.Session = _fastapi.Depends(get_db), token: str = _fastapi.Depends(oauth2schema)):
+    try:
+        load_dotenv()
+        jwt_secret = os.getenv('JWT_SECRET_KEY', 'anime')
+        payload = _jwt.decode(token, jwt_secret, algorithms=['HS256'])
+        user = db.query(_models.User).get(payload['id'])
+    except Exception:
+        raise _fastapi.HTTPException(
+            status_code=401, detail='Invalid Email or Password'
+        )
+
+    return _schemas.User.from_orm(user)
