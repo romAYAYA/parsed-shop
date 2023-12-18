@@ -1,6 +1,6 @@
 <template>
   <div>
-    <form @submit.prevent="userStore.registerUser">
+    <!-- <form @submit.prevent="userStore.registerUser">
       <input type="text" v-model="userStore.email" />
       <input type="text" v-model="userStore.hashed_password" />
       <input type="submit" value="Register" />
@@ -16,11 +16,16 @@
         placeholder="Password"
       />
       <input type="submit" value="Login" />
-    </form>
+    </form> -->
+    <div class="h-screen flex justify-content-center align-items-center">
+      <authPage />
+    </div>
   </div>
 </template>
 
 <script setup>
+import authPage from './pages/authPage.vue'
+
 import { useUserStore } from './stores/user'
 
 const userStore = useUserStore()
