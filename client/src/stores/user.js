@@ -50,7 +50,7 @@ export const useUserStore = defineStore('user', () => {
       )
       setAccessToken(response.data.access_token)
       console.log(response.data)
-    } catch (error) {
+    } catch (err) {
       console.error('Login failed:', err.response.data)
     }
   }

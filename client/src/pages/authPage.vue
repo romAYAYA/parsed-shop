@@ -18,23 +18,28 @@
       </p>
     </div>
 
-    <div>
-      <label for="email1" class="block text-900 font-medium mb-2">Email</label>
-      <InputText id="email1" type="text" class="w-full mb-3" />
-
-      <label for="password1" class="block text-900 font-medium mb-2"
-        >Password</label
-      >
-      <InputText id="password1" type="password" class="w-full mb-3" />
-
-      <Button label="Sign In" icon="pi pi-user" class="w-full"></Button>
-    </div>
+    <LoginComponent :handleLogin="handleLogin" />
+    <RegisterModal :handleRegister="handleRegister" />
   </div>
 </template>
 
 <script setup>
-import InputText from 'primevue/InputText'
-import Button from 'primevue/button'
-</script>
+import RegisterModal from '../components/RegisterModal.vue'
+import LoginComponent from '../components/LoginComponent.vue'
 
-<style scoped></style>
+import { useUserStore } from '../stores/user'
+
+const userStore = useUserStore()
+
+const handleLogin = () => {
+  userStore.loginUser()
+  userStore.username = ''
+  userStore.password = ''
+}
+
+const handleRegister = () => {
+  userStore.registerUser()
+  userStore.hashed_password = ''
+  userStore.email = ''
+}
+</script>
