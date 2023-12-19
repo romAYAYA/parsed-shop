@@ -18,6 +18,7 @@
     >
       <template #container="{ closeCallback }">
         <form
+          @submit.prevent="handleRegister"
           class="flex flex-column px-8 py-5 gap-4"
           style="
             border-radius: 12px;
@@ -52,7 +53,7 @@
           <div class="flex align-items-center gap-2">
             <Button
               label="Sign-Up"
-              @click="handleRegister"
+              type="submit"
               text
               class="p-3 w-full text-primary-50 border-1 border-white-alpha-30 hover:bg-white-alpha-10"
             ></Button>
@@ -88,4 +89,3 @@ const { handleRegister } = defineProps({
 
 const visible = ref(false)
 </script>
-

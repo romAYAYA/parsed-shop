@@ -1,11 +1,6 @@
 <template>
   <form @submit.prevent="handleLogin">
-    <label
-      @submit.prevent="userStore.loginUser"
-      for="email"
-      class="block text-900 font-medium mb-2"
-      >Email</label
-    >
+    <label for="email" class="block text-900 font-medium mb-2">Email</label>
     <InputText
       v-model="userStore.username"
       id="email"
