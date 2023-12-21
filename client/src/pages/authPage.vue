@@ -17,23 +17,18 @@
         Lets shop today!
       </p>
     </div>
-    <button v-if="hasAccessToken" @click="handleLogout">Logout</button>
     <LoginComponent :handleLogin="handleLogin" />
     <RegisterModal :handleRegister="handleRegister" />
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
-
 import RegisterModal from '../components/RegisterModal.vue'
 import LoginComponent from '../components/LoginComponent.vue'
 
 import { useUserStore } from '../stores/user'
 
 const userStore = useUserStore()
-
-const hasAccessToken = ref(false)
 
 const handleLogin = async () => {
   await userStore.loginUser()
@@ -46,12 +41,4 @@ const handleRegister = async () => {
   userStore.hashed_password = ''
   userStore.email = ''
 }
-
-const handleLogout = () => {
-  userStore.logoutUser()
-}
-
-onMounted(() => {
-  hasAccessToken.value = !!localStorage.getItem('access_token')
-})
 </script>

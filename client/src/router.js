@@ -9,25 +9,14 @@ import errorPage from './pages/errorPage.vue'
 
 const routes = [
   { path: '/', component: authPage },
-  { path: '/home', component: homePage, meta: { requiresAuth: true } },
-  { path: '/goods', component: goodsPage, meta: { requiresAuth: true } },
+  { path: '/home', component: homePage },
+  { path: '/goods', component: goodsPage },
   { path: '/:pathMatch(.*)*', component: errorPage },
 ]
 
 const router = createRouter({
   history: createWebHistory(),
   routes,
-})
-
-router.beforeEach((to, from, next) => {
-  const userStore = useUserStore()
-
-  if (to.meta.requiresAuth && !userStore.accessToken) {
-    userStore.logoutUser()
-    return next('/')
-  }
-
-  next()
 })
 
 export default router

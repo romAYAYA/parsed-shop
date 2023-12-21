@@ -1,5 +1,8 @@
 <template>
-  <div>hi, home</div>
+  <HeaderComponent class="flex align-self-start" />
+  <div>hi</div>
 </template>
 
-<script setup></script>
+<script setup>
+import HeaderComponent from '../components/HeaderComponent.vue'
+</script>

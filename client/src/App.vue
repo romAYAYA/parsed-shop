@@ -6,10 +6,4 @@
   </div>
 </template>
 
-<script setup>
-import authPage from './pages/authPage.vue'
-
-import { useUserStore } from './stores/user'
-
-const userStore = useUserStore()
-</script>
+<script setup></script>
