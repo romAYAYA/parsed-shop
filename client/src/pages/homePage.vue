@@ -1,8 +1,3 @@
-<template>
-  <HeaderComponent class="flex align-self-start" />
-  <div>hi</div>
-</template>
+<template>roma</template>
 
-<script setup>
-import HeaderComponent from '../components/HeaderComponent.vue'
-</script>
+<script setup></script>

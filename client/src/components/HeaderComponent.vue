@@ -1,6 +1,6 @@
 <template>
   <Toolbar
-    class="bg-gray-900 shadow-2 w-9 m-2"
+    class="bg-gray-900 shadow-2 w-9"
     style="
       border-radius: 3rem;
       background-image: linear-gradient(
@@ -12,21 +12,20 @@
   >
     <template #start>
       <div class="flex flex-wrap align-items-center gap-3">
-        <button
-          class="p-link inline-flex justify-content-center align-items-center text-white h-3rem w-3rem border-circle hover:bg-white-alpha-10 transition-all transition-duration-200"
-        >
-          <i class="pi pi-home text-2xl"></i>
-        </button>
-        <button
-          class="p-link inline-flex justify-content-center align-items-center text-white h-3rem w-3rem border-circle hover:bg-white-alpha-10 transition-all transition-duration-200"
-        >
-          <i class="pi pi-user text-2xl"></i>
-        </button>
-        <button
-          class="p-link inline-flex justify-content-center align-items-center text-white h-3rem w-3rem border-circle hover:bg-white-alpha-10 transition-all transition-duration-200"
-        >
-          <i class="pi pi-search text-2xl"></i>
-        </button>
+        <router-link to="/home"
+          ><button
+            class="p-link inline-flex justify-content-center align-items-center text-white h-3rem w-3rem border-circle hover:bg-white-alpha-10 transition-all transition-duration-200"
+          >
+            <i class="pi pi-home text-2xl"></i>
+          </button>
+        </router-link>
+        <router-link to="/goods">
+          <button
+            class="p-link inline-flex justify-content-center align-items-center text-white h-3rem w-3rem border-circle hover:bg-white-alpha-10 transition-all transition-duration-200"
+          >
+            <i class="pi pi-cart-plus text-2xl"></i>
+          </button>
+        </router-link>
       </div>
     </template>
 
