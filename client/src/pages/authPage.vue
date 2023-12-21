@@ -29,18 +29,24 @@ import LoginComponent from '../components/LoginComponent.vue'
 
 import { useUserStore } from '../stores/user'
 
+import { useRouter } from 'vue-router'
+
 const userStore = useUserStore()
 
-const handleLogin = () => {
-  userStore.loginUser()
+const router = useRouter()
+
+const handleLogin = async () => {
+  await userStore.loginUser()
   userStore.username = ''
   userStore.password = ''
+  router.push('/home')
 }
 
-const handleRegister = () => {
-  userStore.registerUser()
+const handleRegister = async () => {
+  await userStore.registerUser()
   userStore.hashed_password = ''
   userStore.email = ''
+  router.push('/home')
 }
 
 const handleLogout = () => {

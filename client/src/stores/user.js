@@ -57,7 +57,6 @@ export const useUserStore = defineStore('user', () => {
   const logoutUser = () => {
     clearAccessToken()
     showToast('info', 'Info', 'Successfully logged out.')
-    console.log('hi')
   }
 
   const clearAccessToken = () => {
