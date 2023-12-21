@@ -3,6 +3,7 @@ import { ref } from 'vue'
 import axios from 'axios'
 
 import { useToast } from 'primevue/usetoast'
+import { useRouter } from 'vue-router'
 
 export const useUserStore = defineStore('user', () => {
   const username = ref('')
@@ -13,6 +14,7 @@ export const useUserStore = defineStore('user', () => {
   const error = ref('')
 
   const toast = useToast()
+  const router = useRouter()
 
   const setAccessToken = (token) => {
     accessToken.value = token
@@ -26,9 +28,10 @@ export const useUserStore = defineStore('user', () => {
         hashed_password: hashed_password.value,
       })
       setAccessToken(response.data.access_token)
-      showToast('info', 'Info', 'Successfully signed up. Now login, pls')
+      router.push('/home')
     } catch (err) {
       showToast('error', 'Error', 'An error occurred. Please try again.')
+      clearAccessToken()
     }
   }
 
@@ -48,15 +51,17 @@ export const useUserStore = defineStore('user', () => {
         }
       )
       setAccessToken(response.data.access_token)
-      showToast('info', 'Info', 'Success login')
+      router.push('/home')
     } catch (err) {
       showToast('error', 'Error', 'An error occurred, try again')
+      clearAccessToken()
     }
   }
 
   const logoutUser = () => {
     clearAccessToken()
     showToast('info', 'Info', 'Successfully logged out.')
+    router.push('/')
   }
 
   const clearAccessToken = () => {
