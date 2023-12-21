@@ -23,6 +23,7 @@ router.beforeEach((to, from, next) => {
   const userStore = useUserStore()
 
   if (to.meta.requiresAuth && !userStore.accessToken) {
+    userStore.logoutUser()
     return next('/')
   }
 
