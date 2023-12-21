@@ -25,7 +25,7 @@ async def create_user(
         user = await _user_service.create_user(user, db)
         return await _token_service.create_token(user)
     except Exception as err:
-        return err
+        raise _fastapi.HTTPException(status_code=500, detail="Internal Server Error")
 
 
 @router.get("/api/users/my_profile", response_model=_schemas.User)

@@ -2,6 +2,8 @@ import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import axios from 'axios'
 
+import { useToast } from 'primevue/usetoast'
+
 export const useUserStore = defineStore('user', () => {
   const username = ref('')
   const password = ref('')
@@ -10,14 +12,11 @@ export const useUserStore = defineStore('user', () => {
   const accessToken = ref('')
   const error = ref('')
 
+  const toast = useToast()
+
   const setAccessToken = (token) => {
     accessToken.value = token
     localStorage.setItem('access_token', token)
-  }
-
-  const clearAccessToken = () => {
-    accessToken.value = ''
-    localStorage.removeItem('access_token')
   }
 
   const registerUser = async () => {
@@ -27,9 +26,9 @@ export const useUserStore = defineStore('user', () => {
         hashed_password: hashed_password.value,
       })
       setAccessToken(response.data.access_token)
-      console.log(response.data)
+      showToast('info', 'Info', 'Successfully signed up. Now login, pls')
     } catch (err) {
-      console.error('Registration failed:', err.response.data)
+      showToast('error', 'Error', 'An error occurred. Please try again.')
     }
   }
 
@@ -49,10 +48,30 @@ export const useUserStore = defineStore('user', () => {
         }
       )
       setAccessToken(response.data.access_token)
-      console.log(response.data)
+      showToast('info', 'Info', 'Success login')
     } catch (err) {
-      console.error('Login failed:', err.response.data)
+      showToast('error', 'Error', 'An error occurred, try again')
     }
+  }
+
+  const logoutUser = () => {
+    clearAccessToken()
+    showToast('info', 'Info', 'Successfully logged out.')
+    console.log('hi')
+  }
+
+  const clearAccessToken = () => {
+    accessToken.value = ''
+    localStorage.removeItem('access_token')
+  }
+
+  const showToast = (severity, summary, detail) => {
+    toast.add({
+      severity,
+      summary,
+      detail,
+      life: 3000,
+    })
   }
 
   return {
@@ -64,5 +83,6 @@ export const useUserStore = defineStore('user', () => {
     error,
     registerUser,
     loginUser,
+    logoutUser,
   }
 })

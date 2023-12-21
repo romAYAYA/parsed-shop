@@ -17,7 +17,7 @@
         Lets shop today!
       </p>
     </div>
-
+    <button v-if="userStore.accessToken" @click="handleLogout">Logout</button>
     <LoginComponent :handleLogin="handleLogin" />
     <RegisterModal :handleRegister="handleRegister" />
   </div>
@@ -41,5 +41,9 @@ const handleRegister = () => {
   userStore.registerUser()
   userStore.hashed_password = ''
   userStore.email = ''
+}
+
+const handleLogout = () => {
+  userStore.logoutUser()
 }
 </script>

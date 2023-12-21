@@ -18,18 +18,22 @@
       class="w-full mb-3"
     />
 
-    <Button
-      label="Sign In"
-      type="submit"
-      icon="pi pi-user"
-      class="w-full mb-3"
-    ></Button>
+    <div class="card flex justify-content-center">
+      <Toast />
+      <Button
+        label="Sign In"
+        type="submit"
+        icon="pi pi-user"
+        class="w-full mb-3"
+      ></Button>
+    </div>
   </form>
 </template>
 
 <script setup>
 import InputText from 'primevue/InputText'
 import Button from 'primevue/button'
+import Toast from 'primevue/toast'
 
 import { useUserStore } from '../stores/user'
 
