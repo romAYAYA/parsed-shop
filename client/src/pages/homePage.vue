@@ -1,3 +1,9 @@
-<template>roma</template>
+<template>
+  <div>
+    <HeroComponent />
+  </div>
+</template>
 
-<script setup></script>
+<script setup>
+import HeroComponent from '../components/HeroComponent.vue'
+</script>
